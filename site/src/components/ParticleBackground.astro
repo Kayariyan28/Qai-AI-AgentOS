@@ -1,0 +1,88 @@
+<div id="particle-web" class="fixed inset-0 z-[-1] bg-black"></div>
+
+<script>
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const container = document.getElementById('particle-web');
+    let width, height;
+    let particles = [];
+    
+    // Config
+    const PARTICLE_COUNT = 80;
+    const CONNECT_DISTANCE = 150;
+    const MOUSE_DISTANCE = 200;
+
+    container.appendChild(canvas);
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+            this.size = Math.random() * 2 + 1;
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x < 0 || this.x > width) this.vx *= -1;
+            if (this.y < 0 || this.y > height) this.vy *= -1;
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(74, 222, 128, 0.5)'; // Tailwind green-400
+            ctx.fill();
+        }
+    }
+
+    function init() {
+        resize();
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push(new Particle());
+        }
+        animate();
+    }
+
+    function resize() {
+        width = container.clientWidth;
+        height = container.clientHeight;
+        canvas.width = width;
+        canvas.height = height;
+    }
+
+    function animate() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // Trail effect
+        ctx.fillRect(0, 0, width, height);
+
+        particles.forEach((p, index) => {
+            p.update();
+            p.draw();
+
+            // Connect particles
+            for (let j = index + 1; j < particles.length; j++) {
+                const p2 = particles[j];
+                const dx = p.x - p2.x;
+                const dy = p.y - p2.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < CONNECT_DISTANCE) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(74, 222, 128, ${1 - dist / CONNECT_DISTANCE})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.stroke();
+                }
+            }
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', resize);
+    init();
+</script>

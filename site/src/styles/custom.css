@@ -1,0 +1,61 @@
+/* Global Cyberpunk Theme Overrides */
+:root {
+	--sl-color-accent-low: #1a4d2e;
+	--sl-color-accent: #4ade80;
+	--sl-color-accent-high: #22c55e;
+	--sl-color-bg: #050505;
+	--sl-color-bg-nav: rgba(5, 5, 5, 0.9);
+	--sl-font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    background: #000;
+}
+::-webkit-scrollbar-thumb {
+    background: #22c55e;
+    border-radius: 4px;
+}
+
+/* Glitch Effect Keyframes */
+@keyframes glitch {
+    0% { transform: translate(0) }
+    20% { transform: translate(-2px, 2px) }
+    40% { transform: translate(-2px, -2px) }
+    60% { transform: translate(2px, 2px) }
+    80% { transform: translate(2px, -2px) }
+    100% { transform: translate(0) }
+}
+
+.glitch-hover:hover {
+    animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+    color: #4ade80;
+}
+
+/* Card Glow */
+.card-glow {
+    border: 1px solid rgba(74, 222, 128, 0.2);
+    box-shadow: 0 0 15px rgba(74, 222, 128, 0.1);
+    transition: all 0.3s ease;
+}
+.card-glow:hover {
+    border-color: rgba(74, 222, 128, 0.8);
+    box-shadow: 0 0 25px rgba(74, 222, 128, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Terminal Scanline */
+.hero-terminal::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+}
