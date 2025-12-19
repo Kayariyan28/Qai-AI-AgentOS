@@ -1,0 +1,50 @@
+<div class="bot-logo-container group relative w-10 h-10 flex items-center justify-center mr-3">
+    <!-- Pulse Ring -->
+    <div class="absolute inset-0 rounded-full border border-green-500/30 scale-75 group-hover:scale-110 transition-transform duration-500"></div>
+    
+    <!-- Core SVG -->
+    <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-[0_0_8px_rgba(74,222,128,0.5)]">
+        <!-- Outer Rotating Ring -->
+        <g class="animate-spin-slow group-hover:animate-spin-fast origin-center">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#4ade80" stroke-width="2" stroke-dasharray="20 40 20 40" stroke-opacity="0.5" />
+            <circle cx="50" cy="50" r="45" fill="none" stroke="#22c55e" stroke-width="1" stroke-dasharray="60 100" stroke-opacity="0.3" />
+        </g>
+        
+        <!-- Inner Pulsing Core -->
+        <g class="animate-pulse-core origin-center">
+            <circle cx="50" cy="50" r="15" fill="#4ade80" fill-opacity="0.8" />
+            <circle cx="50" cy="50" r="8" fill="#ffffff" fill-opacity="0.9" />
+        </g>
+        
+        <!-- Scanning Line -->
+        <line x1="0" y1="50" x2="100" y2="50" stroke="#4ade80" stroke-width="1" stroke-opacity="0.2" class="animate-scan" />
+    </svg>
+</div>
+
+<style>
+    .animate-spin-slow {
+        animation: spin 8s linear infinite;
+    }
+    .group-hover\:animate-spin-fast:hover {
+        animation: spin 2s linear infinite;
+    }
+    .animate-pulse-core {
+        animation: pulse-scale 3s ease-in-out infinite;
+    }
+    .animate-scan {
+        animation: scan 4s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    @keyframes pulse-scale {
+        0%, 100% { transform: scale(0.9); opacity: 0.8; }
+        50% { transform: scale(1.1); opacity: 1; }
+    }
+    @keyframes scan {
+        0%, 100% { transform: translateY(-20px); opacity: 0; }
+        50% { transform: translateY(20px); opacity: 1; }
+    }
+</style>

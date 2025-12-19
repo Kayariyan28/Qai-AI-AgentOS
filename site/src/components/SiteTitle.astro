@@ -1,0 +1,10 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import DefaultSiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
+import BotLogo from './BotLogo.astro';
+---
+
+<div class="flex items-center">
+    <BotLogo />
+    <DefaultSiteTitle {...Astro.props} />
+</div>
