@@ -1,0 +1,53 @@
+---
+interface Props {
+	title: string;
+	icon: string;
+}
+
+const { title, icon } = Astro.props;
+---
+
+<div class="tilt-card group relative p-1 rounded-xl bg-gradient-to-b from-white/10 to-transparent transition-all duration-300 transform-gpu">
+    <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-green-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl"></div>
+    <div class="relative h-full bg-black/80 backdrop-blur-md rounded-lg p-6 border border-white/5 group-hover:border-green-400/30 transition-colors">
+        <div class="mb-4 text-green-400 text-3xl">
+            <!-- Icon placeholder logic or use props -->
+            <span class="icon-display">{icon === 'cpu' ? '⚡' : icon === 'puzzle' ? '🧩' : icon === 'apple' ? '🍎' : '🚀'}</span>
+        </div>
+        <h3 class="text-xl font-bold font-mono text-white mb-2 group-hover:text-green-300 transition-colors">{title}</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">
+            <slot />
+        </p>
+    </div>
+</div>
+
+<script>
+    // Vanila Tilt logic simplified
+    const cards = document.querySelectorAll('.tilt-card');
+    
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = ((y - centerY) / centerY) * -10; // Max 10deg rotation
+            const rotateY = ((x - centerX) / centerX) * 10;
+
+            (card as HTMLElement).style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            (card as HTMLElement).style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+        });
+    });
+</script>
+
+<style>
+    .tilt-card {
+        transform-style: preserve-3d;
+    }
+</style>

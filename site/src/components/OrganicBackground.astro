@@ -1,0 +1,144 @@
+<div id="organic-web" class="fixed inset-0 z-[-1] bg-[#050505]"></div>
+
+<script>
+    const container = document.getElementById('organic-web');
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    container.appendChild(canvas);
+
+    let width, height;
+    let particles = [];
+    const PARTICLE_COUNT = 600;
+    const NOISE_SCALE = 0.005;
+    const SPEED = 0.5;
+
+    // Simplex Noise implementation (simplified for flow field)
+    // Source: OpenSimplexNoise (adapted)
+    const perm = new Uint8Array(512);
+    const p = new Uint8Array(256);
+    for(let i=0; i<256; i++) p[i] = i;
+    for(let i=0; i<256; i++) {
+        let r = Math.floor(Math.random() * (256 - i)) + i;
+        let t = p[i]; p[i] = p[r]; p[r] = t;
+    }
+    for(let i=0; i<512; i++) perm[i] = p[i & 255];
+
+    function noise(x, y) {
+        const X = Math.floor(x) & 255;
+        const Y = Math.floor(y) & 255;
+        x -= Math.floor(x);
+        y -= Math.floor(y);
+        const u = fade(x);
+        const v = fade(y);
+        const A = perm[X] + Y, B = perm[X + 1] + Y;
+        return lerp(v, lerp(u, grad(perm[A], x, y), grad(perm[B], x - 1, y)),
+                       lerp(u, grad(perm[A + 1], x, y - 1), grad(perm[B + 1], x - 1, y - 1)));
+    }
+    function fade(t) { return t * t * t * (t * (t * 6 - 15) + 10); }
+    function lerp(t, a, b) { return a + t * (b - a); }
+    function grad(hash, x, y) {
+        const h = hash & 15;
+        const u = h < 8 ? x : y, v = h < 4 ? y : h === 12 || h === 14 ? x : 0;
+        return ((h & 1) === 0 ? u : -u) + ((h & 2) === 0 ? v : -v);
+    }
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = 0;
+            this.vy = 0;
+            this.life = Math.random() * 100 + 50;
+            this.maxLife = this.life;
+            this.history = [];
+            this.stagnant = 0;
+        }
+
+        update(time) {
+            // Flow field from noise
+            const angle = noise(this.x * NOISE_SCALE, this.y * NOISE_SCALE + time * 0.0001) * Math.PI * 4;
+            
+            this.vx += Math.cos(angle) * 0.1;
+            this.vy += Math.sin(angle) * 0.1;
+            
+            // Limit speed
+            const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+            if (speed > SPEED) {
+                this.vx = (this.vx / speed) * SPEED;
+                this.vy = (this.vy / speed) * SPEED;
+            }
+
+            this.x += this.vx;
+            this.y += this.vy;
+            this.life--;
+
+            // Wrap around
+            if (this.x < 0) this.x = width;
+            if (this.x > width) this.x = 0;
+            if (this.y < 0) this.y = height;
+            if (this.y > height) this.y = 0;
+
+            // Reset if dead
+            if (this.life <= 0) {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.life = Math.random() * 100 + 50;
+                this.history = [];
+                this.vx = 0;
+                this.vy = 0;
+            }
+
+            // Trace history for fibrous look
+            this.history.push({x: this.x, y: this.y});
+            if (this.history.length > 20) this.history.shift();
+        }
+
+        draw() {
+            if (this.history.length < 2) return;
+            
+            ctx.beginPath();
+            ctx.moveTo(this.history[0].x, this.history[0].y);
+            for (let i = 1; i < this.history.length; i++) {
+                ctx.lineTo(this.history[i].x, this.history[i].y);
+            }
+            
+            // Vary opacity based on life
+            const opacity = (this.life / this.maxLife) * 0.3;
+            // Nanotectonica color palette: Pale white/grey/green
+            ctx.strokeStyle = `rgba(200, 220, 210, ${opacity})`; 
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+        }
+    }
+
+    function init() {
+        resize();
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push(new Particle());
+        }
+        animate(0);
+    }
+
+    function resize() {
+        width = container.clientWidth;
+        height = container.clientHeight;
+        canvas.width = width;
+        canvas.height = height;
+    }
+
+    function animate(time) {
+        // Fade out slightly for trails
+        ctx.fillStyle = 'rgba(5, 5, 5, 0.1)';
+        ctx.fillRect(0, 0, width, height);
+
+        particles.forEach(p => {
+            p.update(time);
+            p.draw();
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', resize);
+    init();
+</script>
