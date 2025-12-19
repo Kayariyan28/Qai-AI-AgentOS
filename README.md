@@ -83,4 +83,4 @@ AgentOS/
 We welcome "Architects" who want to build the future of computing. Check out [docs/PRD.md](docs/PRD.md) for the roadmap.
 
 ---
-*Built with ❤️ by the Antigravity Team.*
+*Created by **Karan Chandra Dey**.*
