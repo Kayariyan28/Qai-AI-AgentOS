@@ -1,0 +1,114 @@
+<div id="robot-container" class="w-full h-[400px] md:h-[500px] relative"></div>
+
+<script>
+    import * as THREE from 'three';
+
+    const container = document.getElementById('robot-container');
+    
+    // Scene Setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    // Droid Core Group
+    const droid = new THREE.Group();
+    scene.add(droid);
+
+    // 1. Core Sphere (Glossy Black/Green)
+    const coreGeometry = new THREE.IcosahedronGeometry(1.5, 2);
+    const coreMaterial = new THREE.MeshStandardMaterial({ 
+        color: 0x00ff00, 
+        roughness: 0.1, 
+        metalness: 0.8,
+        wireframe: true,
+        emissive: 0x003300
+    });
+    const core = new THREE.Mesh(coreGeometry, coreMaterial);
+    droid.add(core);
+
+    // 2. Inner Glow Sphere
+    const innerGeometry = new THREE.IcosahedronGeometry(1.2, 1);
+    const innerMaterial = new THREE.MeshBasicMaterial({ 
+        color: 0x4ade80, 
+        wireframe: false,
+        transparent: true,
+        opacity: 0.3
+    });
+    const inner = new THREE.Mesh(innerGeometry, innerMaterial);
+    droid.add(inner);
+
+    // 3. Orbital Rings
+    const ringGeometry = new THREE.TorusGeometry(2.5, 0.05, 16, 100);
+    const ringMaterial = new THREE.MeshBasicMaterial({ color: 0x4ade80, transparent: true, opacity: 0.5 });
+    
+    const ring1 = new THREE.Mesh(ringGeometry, ringMaterial);
+    ring1.rotation.x = Math.PI / 2;
+    droid.add(ring1);
+
+    const ring2 = new THREE.Mesh(ringGeometry, ringMaterial);
+    ring2.rotation.x = Math.PI / 3;
+    ring2.rotation.y = Math.PI / 4;
+    droid.add(ring2);
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
+    scene.add(ambientLight);
+
+    const pointLight = new THREE.PointLight(0x4ade80, 2, 50);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+
+    const pointLight2 = new THREE.PointLight(0x8b5cf6, 2, 50); // Purple contrast
+    pointLight2.position.set(-5, -5, 5);
+    scene.add(pointLight2);
+
+    camera.position.z = 5;
+
+    // Mouse Interaction
+    let mouseX = 0;
+    let mouseY = 0;
+    
+    document.addEventListener('mousemove', (event) => {
+        mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+        mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    // Animation Loop
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // Idle Rotation
+        core.rotation.y += 0.005;
+        core.rotation.x += 0.002;
+        
+        inner.pulse = Date.now() * 0.002;
+        inner.scale.setScalar(1 + Math.sin(inner.pulse) * 0.05);
+
+        ring1.rotation.x += 0.01;
+        ring1.rotation.y += 0.005;
+        
+        ring2.rotation.x -= 0.005;
+        ring2.rotation.y += 0.01;
+
+        // Mouse Follow
+        droid.rotation.x += (mouseY * 0.5 - droid.rotation.x) * 0.05;
+        droid.rotation.y += (mouseX * 0.5 - droid.rotation.y) * 0.05;
+
+        // Floating Effect
+        droid.position.y = Math.sin(Date.now() * 0.001) * 0.2;
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // Resize Handler
+    window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+    });
+</script>
