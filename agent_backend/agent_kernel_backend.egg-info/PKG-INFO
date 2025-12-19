@@ -1,0 +1,33 @@
+Metadata-Version: 2.4
+Name: agent-kernel-backend
+Version: 0.1.0
+Summary: The Agentic Brain for the AgentKernel OS
+Author-email: AgentKernel Team <agent@kernel.os>
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: langchain>=0.3.0
+Requires-Dist: langgraph>=0.2.0
+Requires-Dist: langchain-community>=0.3.0
+Requires-Dist: langchain-ollama>=0.2.0
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: duckduckgo-search>=6.0.0
+Requires-Dist: sympy>=1.12
+Requires-Dist: matplotlib>=3.8.0
+
+# Agent Backend
+
+This directory contains the brain of the AgentKernel. It is a Python-based system that uses LangChain and LangGraph to execute user instructions agentically.
+
+## Architecture
+
+- **`src/main.py`**: Entry point.
+- **`src/agent/`**: Core agent logic (Graph definition).
+- **`src/tools/`**: Low-level system tools (FS, Process).
+- **`src/llm.py`**: LLM Interface (Ollama).
+
+## Usage
+
+1. Create a virtual environment: `python3 -m venv .venv`
+2. Activate: `source .venv/bin/activate`
+3. Install: `pip install -e .`
+4. Run: `python -m src.main`

@@ -1,0 +1,8 @@
+langchain
+langgraph
+langchain-ollama
+langchain-community
+duckduckgo-search
+sympy
+matplotlib
+numpy

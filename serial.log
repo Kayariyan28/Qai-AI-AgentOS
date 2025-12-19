@@ -1,0 +1,27 @@
+INFO : Framebuffer info: FrameBufferInfo { byte_len: 2764800, width: 1280, height: 720, pixel_format: Bgr, bytes_per_pixel: 3, stride: 1280 }
+INFO : 4th Stage
+INFO : BiosInfo { stage_4: Region { start: 130000, len: 28980 }, kernel: Region { start: 1000000, len: 5f4890 }, ramdisk: Region { start: 15f5000, len: 0 }, config_file: Region { start: 15f5000, len: 0 }, last_used_addr: 15f4fff, framebuffer: BiosFramebufferInfo { region: Region { start: fd000000, len: 2a3000 }, width: 500, height: 2d0, bytes_per_pixel: 3, stride: 500, pixel_format: Bgr }, memory_map_addr: e728, memory_map_len: 7 }
+INFO : BIOS boot
+INFO : Elf file loaded at 0x0000000001000000
+INFO : virtual_address_offset: 0x8000000000
+INFO : Handling Segment: Ph64(ProgramHeader64 { type_: Ok(Load), flags: Flags(4), offset: 0, virtual_addr: 0, physical_addr: 0, file_size: 119e4, mem_size: 119e4, align: 1000 })
+INFO : Handling Segment: Ph64(ProgramHeader64 { type_: Ok(Load), flags: Flags(5), offset: 119f0, virtual_addr: 129f0, physical_addr: 129f0, file_size: 6b7d6, mem_size: 6b7d6, align: 1000 })
+INFO : Handling Segment: Ph64(ProgramHeader64 { type_: Ok(Load), flags: Flags(6), offset: 7d1c8, virtual_addr: 7f1c8, physical_addr: 7f1c8, file_size: 4f88, mem_size: 4f88, align: 1000 })
+INFO : Handling Segment: Ph64(ProgramHeader64 { type_: Ok(Load), flags: Flags(6), offset: 82180, virtual_addr: 85180, physical_addr: 85180, file_size: 668, mem_size: 67d2, align: 1000 })
+INFO : Mapping bss section
+INFO : Entry point at: 0x80000396f0
+INFO : Creating GDT at PhysAddr(0x1620000)
+INFO : Map framebuffer
+INFO : Map physical memory
+INFO : Allocate bootinfo
+INFO : Create Memory Map
+INFO : Create bootinfo
+INFO : Jumping to kernel entry point at VirtAddr(0x80000396f0)
+AgentOS: serial debug start (0.11)
+AgentOS: interrupts enabled
+AgentOS: initializing agent subsys
+MemFS: Initialized
+AgentOS: running executor
+Agentd: Daemon Started
+TX: {"id":0,"target":"host","msg_type":"task","content":"hi"}
+{"id":0,"target":"host","msg_type":"task","content":"hi"}

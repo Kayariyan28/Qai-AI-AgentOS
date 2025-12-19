@@ -1,0 +1,10 @@
+/Users/karanchandradey/AgentKernel/target/x86_64-unknown-none/debug/deps/liblock_api-9da6919166698f81.rmeta: /Users/karanchandradey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.14/src/lib.rs /Users/karanchandradey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.14/src/mutex.rs /Users/karanchandradey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.14/src/remutex.rs /Users/karanchandradey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.14/src/rwlock.rs
+
+/Users/karanchandradey/AgentKernel/target/x86_64-unknown-none/debug/deps/liblock_api-9da6919166698f81.rlib: /Users/karanchandradey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.14/src/lib.rs /Users/karanchandradey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.14/src/mutex.rs /Users/karanchandradey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.14/src/remutex.rs /Users/karanchandradey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.14/src/rwlock.rs
+
+/Users/karanchandradey/AgentKernel/target/x86_64-unknown-none/debug/deps/lock_api-9da6919166698f81.d: /Users/karanchandradey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.14/src/lib.rs /Users/karanchandradey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.14/src/mutex.rs /Users/karanchandradey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.14/src/remutex.rs /Users/karanchandradey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.14/src/rwlock.rs
+
+/Users/karanchandradey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.14/src/lib.rs:
+/Users/karanchandradey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.14/src/mutex.rs:
+/Users/karanchandradey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.14/src/remutex.rs:
+/Users/karanchandradey/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.14/src/rwlock.rs:
