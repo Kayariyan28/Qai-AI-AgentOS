@@ -18,24 +18,26 @@
     scene.add(droid);
 
     // 1. Core Sphere (Glossy Black/Green)
-    const coreGeometry = new THREE.IcosahedronGeometry(1.5, 2);
-    const coreMaterial = new THREE.MeshStandardMaterial({ 
-        color: 0x00ff00, 
-        roughness: 0.1, 
-        metalness: 0.8,
-        wireframe: true,
-        emissive: 0x003300
+    const coreGeometry = new THREE.IcosahedronGeometry(1.5, 4); // More detail
+    const coreMaterial = new THREE.MeshPhysicalMaterial({ 
+        color: 0x000000, 
+        roughness: 0, 
+        metalness: 1,
+        clearcoat: 1,
+        emissive: 0x00aa00,
+        emissiveIntensity: 0.2, // Glow
+        wireframe: true
     });
     const core = new THREE.Mesh(coreGeometry, coreMaterial);
     droid.add(core);
 
     // 2. Inner Glow Sphere
-    const innerGeometry = new THREE.IcosahedronGeometry(1.2, 1);
+    const innerGeometry = new THREE.IcosahedronGeometry(1.0, 1);
     const innerMaterial = new THREE.MeshBasicMaterial({ 
-        color: 0x4ade80, 
+        color: 0xffffff, // White core
         wireframe: false,
         transparent: true,
-        opacity: 0.3
+        opacity: 0.8
     });
     const inner = new THREE.Mesh(innerGeometry, innerMaterial);
     droid.add(inner);

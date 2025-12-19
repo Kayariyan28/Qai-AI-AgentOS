@@ -21,25 +21,26 @@
         };
 
         p.draw = () => {
-            p.background(5, 5, 5, 50); // Fade effect
+            p.background(5, 5, 5, 30); // Decreased fade for longer trails
             p.textSize(fontSize);
             p.textFont('monospace');
 
             for (let i = 0; i < drops.length; i++) {
-                // Digital Matrix/Code Rain Effect
-                // Randomly choose bright green or dim green
-                if (p.random() > 0.95) {
-                    p.fill(74, 222, 128); // Bright Tailwind green-400
+                // Hyper-Active Digital Matrix Effect
+                // Brighter Green
+                if (p.random() > 0.90) {
+                    p.fill(74, 222, 128); // Bright Green
+                } else if (p.random() > 0.70) {
+                     p.fill(255, 255, 255); // White Glints
                 } else {
-                    p.fill(34, 197, 94); // Darker green-500
+                    p.fill(34, 197, 94); // Base Green
                 }
 
-                const char = String.fromCharCode(0x30A0 + p.round(p.random(96))); // Katakana
-                // or binary: const char = p.round(p.random(1)); 
+                const char = String.fromCharCode(0x30A0 + p.round(p.random(96))); 
                 
                 p.text(char, i * fontSize, drops[i] * fontSize);
 
-                if (drops[i] * fontSize > p.height && p.random() > 0.975) {
+                if (drops[i] * fontSize > p.height && p.random() > 0.985) { // Slower reset
                     drops[i] = 0;
                 }
                 drops[i]++;
