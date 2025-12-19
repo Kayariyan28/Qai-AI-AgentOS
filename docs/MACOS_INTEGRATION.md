@@ -10,11 +10,11 @@ Qai AgentOS runs inside a QEMU virtual machine for safety and isolation. However
 ### Architecture
 ```mermaid
 graph LR
-    Kernel[Rust Kernel] -->|JSON Command| Serial[Virtual Serial Port]
-    Serial -->|PTY| Bridge[Python Bridge (Host)]
-    Bridge -->|Subprocess| AppleScript[osascript]
-    AppleScript -->|IPC| MacOS[macOS System Events]
-    MacOS -->|Control| Apps[Music, Finder, Safari]
+    Kernel["Rust Kernel"] -->|JSON Command| Serial["Virtual Serial Port"]
+    Serial -->|PTY| Bridge["Python Bridge (Host)"]
+    Bridge -->|Subprocess| AppleScript["osascript"]
+    AppleScript -->|IPC| MacOS["macOS System Events"]
+    MacOS -->|Control| Apps["Music, Finder, Safari"]
 ```
 
 ### AppleScript (JXA)
