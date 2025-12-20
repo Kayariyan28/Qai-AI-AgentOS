@@ -1,0 +1,86 @@
+---
+title: Installation
+description: How to set up and run Qai AgentOS on your machine.
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+> **Get Qai AgentOS running in minutes.**  
+> This guide walks you through setting up the kernel, Python backend, and connecting everything.
+
+## Prerequisites
+
+Before you begin, ensure you have:
+
+- **macOS** (14.0+ recommended) or Linux
+- **Rust** (nightly toolchain via `rustup`)
+- **QEMU** for x86_64 emulation
+- **Python 3.10+** with pip
+- **Ollama** running locally with `llama3.2` or similar
+
+## Quick Start
+
+<Steps>
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/Kayariyan28/Qai-AI-AgentOS.git
+   cd Qai-AI-AgentOS
+   ```
+
+2. **Set Up Python Environment**
+   ```bash
+   cd agent_backend
+   python -m venv .venv
+   source .venv/bin/activate
+   pip install -e .
+   ```
+
+3. **Build the Kernel**
+   ```bash
+   cd ../builder
+   chmod +x build.sh run.sh
+   ./build.sh
+   ```
+
+4. **Start Ollama**
+   ```bash
+   # In a separate terminal
+   ollama serve
+   ```
+
+5. **Run Everything**
+   ```bash
+   # Terminal 1: Start QEMU
+   ./run.sh
+   
+   # Terminal 2: Start the Python Bridge
+   cd agent_backend
+   python -m src.main
+   # Enter the PTY device shown by QEMU (e.g., /dev/ttys003)
+   ```
+
+</Steps>
+
+## Verifying the Setup
+
+Once connected, you should see:
+- The **Qai AgentOS** logo in the QEMU window
+- `AgentBridge: Connected to PTY!` in your Python terminal
+- A blinking cursor ready for input
+
+Try typing: `Hello, AgentOS!`
+
+## Troubleshooting
+
+| Issue | Solution |
+| :--- | :--- |
+| **QEMU won't start** | Ensure `qemu-system-x86_64` is in your PATH |
+| **Bridge can't find PTY** | Look for `char device redirected to /dev/ttysXXX` in QEMU output |
+| **Ollama timeout** | Run `ollama run llama3.2` once to download the model |
+| **Kernel panic** | Check `serial.log` for detailed error messages |
+
+## Next Steps
+
+- Explore the [User Guide](/guides/user-guide) for available commands
+- Learn about the [Architecture](/reference/architecture) to understand how it all works

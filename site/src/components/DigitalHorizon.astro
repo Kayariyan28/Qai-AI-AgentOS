@@ -1,64 +1,134 @@
-<div id="digital-horizon" class="fixed inset-0 z-[-1] bg-[#050505] opacity-60"></div>
+---
+---
 
-<script>
-    import p5 from 'p5';
+<div id="p5-container" class="fixed inset-0 z-[-1] opacity-40 mix-blend-screen pointer-events-none"></div>
+
+<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+
+<script is:inline>
+  // Ensure p5 is loaded
+  const initSketch = () => {
+    if (typeof p5 === 'undefined') {
+        setTimeout(initSketch, 100);
+        return;
+    }
 
     const sketch = (p) => {
-        let drops = [];
-        const fontSize = 14;
-        let columns;
+        let streams = [];
+        let symbolSize = 16;
 
-        p.setup = () => {
-            const container = document.getElementById('digital-horizon');
+        p.setup = function() {
+            const container = document.getElementById('p5-container');
             const canvas = p.createCanvas(container.clientWidth, container.clientHeight);
-            canvas.parent('digital-horizon');
+            canvas.parent('p5-container');
+            p.background(0);
             
-            columns = p.width / fontSize;
-            for (let i = 0; i < columns; i++) {
-                drops[i] = p.random(-100, p.height); // Start above screen
+            let x = 0;
+            for (let i = 0; i <= p.width / symbolSize; i++) {
+                let stream = new Stream(p);
+                stream.generateSymbols(x, p.random(-1000, 0));
+                streams.push(stream);
+                x += symbolSize;
             }
-            p.frameRate(30);
+            
+            p.textSize(symbolSize);
         };
 
-        p.draw = () => {
-            p.background(5, 5, 5, 30); // Decreased fade for longer trails
-            p.textSize(fontSize);
-            p.textFont('monospace');
-
-            for (let i = 0; i < drops.length; i++) {
-                // Hyper-Active Digital Matrix Effect
-                // Brighter Green
-                if (p.random() > 0.90) {
-                    p.fill(74, 222, 128); // Bright Green
-                } else if (p.random() > 0.70) {
-                     p.fill(255, 255, 255); // White Glints
-                } else {
-                    p.fill(34, 197, 94); // Base Green
-                }
-
-                const char = String.fromCharCode(0x30A0 + p.round(p.random(96))); 
-                
-                p.text(char, i * fontSize, drops[i] * fontSize);
-
-                if (drops[i] * fontSize > p.height && p.random() > 0.985) { // Slower reset
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
+        p.draw = function() {
+            p.background(0, 150); // Trail effect
+            streams.forEach(stream => {
+                stream.render();
+            });
+        };
+        
+        p.windowResized = function() {
+            const container = document.getElementById('p5-container');
+            p.resizeCanvas(container.clientWidth, container.clientHeight);
         };
 
-        p.windowResized = () => {
-            const container = document.getElementById('digital-horizon');
-             if (container) {
-                p.resizeCanvas(container.clientWidth, container.clientHeight);
-                columns = p.width / fontSize;
-                drops = []; // Reset drops
-                for (let i = 0; i < columns; i++) {
-                    drops[i] = p.random(-100, p.height);
+        class Symbol {
+            constructor(p, x, y, speed, first) {
+                this.p = p;
+                this.x = x;
+                this.y = y;
+                this.value = '0'; // Default
+                this.speed = speed;
+                this.switchInterval = p.round(p.random(2, 20));
+                this.first = first;
+            }
+
+            setToRandomSymbol() {
+                if (this.p.frameCount % this.switchInterval == 0) {
+                    // Binary or Hex characters
+                    let charType = this.p.round(this.p.random(0, 5));
+                    if (charType > 1) {
+                        this.value = String.fromCharCode(0x30A0 + this.p.round(this.p.random(0, 96))); // Katakana
+                    } else {
+                        // Binary
+                        this.value = this.p.round(this.p.random(0, 1));
+                    }
                 }
             }
-        };
+
+            rain() {
+                this.y = (this.y >= this.p.height) ? 0 : this.y += this.speed;
+            }
+        }
+
+        class Stream {
+            constructor(p) {
+                this.p = p;
+                this.symbols = [];
+                this.totalSymbols = p.round(p.random(5, 30));
+                this.speed = p.random(2, 8); // Variable speed
+            }
+
+            generateSymbols(x, y) {
+                let first = p.round(p.random(0, 4)) == 1;
+                for (let i = 0; i <= this.totalSymbols; i++) {
+                    let symbol = new Symbol(p, x, y, this.speed, first);
+                    symbol.setToRandomSymbol();
+                    this.symbols.push(symbol);
+                    y -= symbolSize; 
+                    first = false; 
+                }
+            }
+
+            render() {
+                this.symbols.forEach(symbol => {
+                    if (symbol.first) {
+                        this.p.fill(180, 255, 180);
+                    } else {
+                        // Cyber green gradient
+                        this.p.fill(0, 255, 136, 180); // opacity
+                    }
+                    this.p.text(symbol.value, symbol.x, symbol.y);
+                    symbol.rain();
+                    symbol.setToRandomSymbol();
+                });
+            }
+        }
     };
 
     new p5(sketch);
+  };
+
+  initSketch();
 </script>
+
+<style>
+    #p5-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: -1; /* Behind everything */
+        background: black;
+    }
+    
+    /* Ensure the p5 canvas is styled correctly (do NOT use :global(canvas) as it breaks other canvases) */
+    #p5-container canvas {
+        display: block;
+    }
+</style>

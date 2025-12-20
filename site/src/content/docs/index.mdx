@@ -25,17 +25,17 @@ import HeroSection from '../../components/HeroSection.astro';
                 <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
                 <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
             </div>
-            <div class="text-xs text-gray-600 tracking-widest">QAI_KERNEL_DEBUG_BRIDGE</div>
+            <div class="text-xs text-gray-400 tracking-widest">QAI_KERNEL_DEBUG_BRIDGE</div>
           </div>
           
-          <div className="space-y-2 font-mono">
-              <p class="text-gray-500"><span class="text-green-500">➜</span> ~ initializing neural_bridge...</p>
-              <p class="text-gray-300 leading-relaxed type-animation delay-100">
+            <div className="space-y-2 font-mono">
+              <p class="text-gray-300"><span class="text-green-500">➜</span> ~ initializing neural_bridge...</p>
+              <p class="text-gray-100 leading-relaxed type-animation delay-100">
                 [OK] Rust Microkernel loaded (0.04ms)<br/>
                 [OK] Python Environment: Active<br/>
                 [OK] Host Connection: macOS 14.2<br/>
               </p>
-              <p class="text-gray-500 mt-4"><span class="text-green-500">➜</span> ~ user_intent: "Play something for focus"</p>
+              <p class="text-gray-300 mt-4"><span class="text-green-500">➜</span> ~ user_intent: "Play something for focus"</p>
               <p class="text-purple-400 leading-relaxed type-animation delay-500">
                 > Analyzing context... (Work Mode)<br/>
                 > Selecting playlist: 'Deep Focus'<br/>
@@ -60,6 +60,132 @@ import HeroSection from '../../components/HeroSection.astro';
         <FeatureCard title="Self-Healing" icon="rocket">
             An OS that inspects its own state, writes its own tools, and evolves with your needs via recursive self-improvement.
         </FeatureCard>
+    </div>
+
+    {/* Supported Prompts Section */}
+    <div class="mt-24 px-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-4">Supported Prompts</h2>
+        <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto">Just state your intent in natural language. No strict syntax required.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Music Control */}
+            <div class="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-6 hover:border-green-500/50 transition-all">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-2xl">🎵</span>
+                    <h3 class="text-xl font-bold text-white">Music Control</h3>
+                </div>
+                <ul class="space-y-2 text-sm font-mono text-gray-300">
+                    <li><span class="text-green-500">→</span> "Play some jazz music"</li>
+                    <li><span class="text-green-500">→</span> "Play Bohemian Rhapsody"</li>
+                    <li><span class="text-green-500">→</span> "Pause the music"</li>
+                    <li><span class="text-green-500">→</span> "Next song"</li>
+                </ul>
+            </div>
+
+            {/* Agent Psych Test */}
+            <div class="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-6 hover:border-purple-500/50 transition-all">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-2xl">🧠</span>
+                    <h3 class="text-xl font-bold text-white">Agent Psychology Test</h3>
+                </div>
+                <ul class="space-y-2 text-sm font-mono text-gray-300">
+                    <li><span class="text-purple-500">→</span> "Run the agent psychology test"</li>
+                    <li><span class="text-purple-500">→</span> "Test the agents"</li>
+                    <li><span class="text-purple-500">→</span> "Evaluate agent performance"</li>
+                </ul>
+            </div>
+
+            {/* Graphical Visualization */}
+            <div class="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-6 hover:border-pink-500/50 transition-all">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-2xl">📈</span>
+                    <h3 class="text-xl font-bold text-white">Graphical Visualization</h3>
+                </div>
+                <ul class="space-y-2 text-sm font-mono text-gray-300">
+                    <li><span class="text-pink-500">→</span> "Plot sin(x) from 0 to 6"</li>
+                    <li><span class="text-pink-500">→</span> "Graph y = cos(x)"</li>
+                    <li><span class="text-pink-500">→</span> "Draw sqrt(x) from 1 to 10"</li>
+                    <li><span class="text-pink-500">→</span> "Plot exp(x) function"</li>
+                </ul>
+            </div>
+
+            {/* Data Quality Checker */}
+            <div class="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-6 hover:border-blue-500/50 transition-all">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-2xl">✅</span>
+                    <h3 class="text-xl font-bold text-white">Data Quality Checker</h3>
+                </div>
+                <ul class="space-y-2 text-sm font-mono text-gray-300">
+                    <li><span class="text-blue-500">→</span> "Audit the sales_data.csv file"</li>
+                    <li><span class="text-blue-500">→</span> "Check data quality of users.csv"</li>
+                    <li><span class="text-blue-500">→</span> "Detect missing values in report.csv"</li>
+                    <li><span class="text-blue-500">→</span> "Find outliers in dataset"</li>
+                </ul>
+            </div>
+
+            {/* Data Pipeline Builder */}
+            <div class="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-6 hover:border-orange-500/50 transition-all">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-2xl">🔄</span>
+                    <h3 class="text-xl font-bold text-white">Data Pipeline Builder</h3>
+                </div>
+                <ul class="space-y-2 text-sm font-mono text-gray-300">
+                    <li><span class="text-orange-500">→</span> "Build ETL pipeline for my data"</li>
+                    <li><span class="text-orange-500">→</span> "Generate and clean synthetic data"</li>
+                    <li><span class="text-orange-500">→</span> "Save cleaned data to QData folder"</li>
+                    <li><span class="text-orange-500">→</span> "Run data auditor with pipeline"</li>
+                </ul>
+            </div>
+
+            {/* ML Model Builder */}
+            <div class="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-6 hover:border-yellow-500/50 transition-all">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-2xl">🤖</span>
+                    <h3 class="text-xl font-bold text-white">ML Model Builder</h3>
+                </div>
+                <ul class="space-y-2 text-sm font-mono text-gray-300">
+                    <li><span class="text-yellow-500">→</span> "Train a model on housing_prices.csv"</li>
+                    <li><span class="text-yellow-500">→</span> "Build a classifier for iris.csv"</li>
+                </ul>
+            </div>
+
+            {/* Chess Battle */}
+            <div class="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-6 hover:border-red-500/50 transition-all">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-2xl">♟️</span>
+                    <h3 class="text-xl font-bold text-white">Chess Battle</h3>
+                </div>
+                <ul class="space-y-2 text-sm font-mono text-gray-300">
+                    <li><span class="text-red-500">→</span> "Start a chess battle"</li>
+                    <li><span class="text-red-500">→</span> "Run the chess simulation"</li>
+                </ul>
+            </div>
+
+            {/* Calculator & Utilities */}
+            <div class="bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-6 hover:border-cyan-500/50 transition-all">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="text-2xl">🧮</span>
+                    <h3 class="text-xl font-bold text-white">Calculator & Utilities</h3>
+                </div>
+                <ul class="space-y-2 text-sm font-mono text-gray-300">
+                    <li><span class="text-cyan-500">→</span> "Calculate the square root of 1444"</li>
+                    <li><span class="text-cyan-500">→</span> "What is 25% of 850?"</li>
+                    <li><span class="text-cyan-500">→</span> "Search for the latest Rust release"</li>
+                </ul>
+            </div>
+        </div>
+
+        {/* System Commands */}
+        <div class="mt-12 bg-black/40 backdrop-blur-sm border border-white/10 rounded-lg p-6">
+            <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                <span class="text-2xl">🔧</span> System Commands
+            </h3>
+            <div class="flex flex-wrap gap-4 font-mono text-sm">
+                <span class="px-4 py-2 bg-gray-800 rounded-full text-gray-300 border border-gray-700">help</span>
+                <span class="px-4 py-2 bg-gray-800 rounded-full text-gray-300 border border-gray-700">clear</span>
+                <span class="px-4 py-2 bg-gray-800 rounded-full text-gray-300 border border-gray-700">shutdown</span>
+            </div>
+        </div>
     </div>
 
     <HoloFooter />

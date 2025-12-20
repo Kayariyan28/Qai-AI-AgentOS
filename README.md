@@ -1,10 +1,15 @@
 # Qai AgentOS 🧠🤖
 
+<p align="center">
+  <img src="docs/qai_agentos_demo.gif" alt="Qai AgentOS Demo" width="800"/>
+</p>
+
 > **The First Artificial Intelligence Operating System.**
 > 
 > *Hybrid Rust Kernel + LangGraph Neural Backend.*
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg) ![Rust](https://img.shields.io/badge/built_with-Rust-orange.svg) ![AI](https://img.shields.io/badge/AI-LangGraph-purple.svg)
+
 
 ## Overview
 AgentOS is an experimental operating system that redefines the "User Space." Instead of a dumb shell waiting for commands, the user interacts with a **Neural Kernel Bridge** connected to state-of-the-art LLM Agents.
